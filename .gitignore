@@ -1,0 +1,9 @@
+# Never commit tunnel secrets
+*.pem
+**/credentials*.json
+**/*-credentials.json
+.env
+.env.*
+config/config.yml
+/etc/
+*.token

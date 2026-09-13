@@ -1,0 +1,26 @@
+# Canopy — example cloudflared config (PLACEHOLDERS ONLY)
+# Copy to the Orange Pi as e.g. /etc/cloudflared/config.yml
+# Docs: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+
+# UUID from: cloudflared tunnel create canopy
+tunnel: TUNNEL_UUID_HERE
+
+# Written when the tunnel is created (do not commit real credentials)
+credentials-file: /etc/cloudflared/TUNNEL_UUID_HERE.json
+
+# Optional: tighten logging on the Pi
+# logfile: /var/log/cloudflared.log
+# loglevel: info
+
+ingress:
+  # Public hostname → existing Canopy LAN UI (do NOT rebuild Canopy)
+  # Replace with your Zero Trust hostname and the real local bind address/port.
+  - hostname: canopy.EXAMPLE.com
+    service: http://127.0.0.1:CANOPY_PORT
+    originRequest:
+      # Canopy is a local dashboard; keep connect timeouts modest
+      connectTimeout: 30s
+      noTLSVerify: false
+
+  # Catch-all (required): reject anything else
+  - service: http_status:404
