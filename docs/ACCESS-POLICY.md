@@ -1,6 +1,7 @@
 # Cloudflare Access policy notes (Canopy)
 
-Put **Cloudflare Access** in front of the tunnel hostname so anonymous visitors never reach the live camera or Water/Lamp controls.
+Put **Cloudflare Access** in front of the tunnel hostname so anonymous visitors never reach the live camera or Water/Lamp controls. Those buttons are live 120V actuators — treat the allowlist as the lock on the pump and lamp.
+
 
 Official refs:
 - [One-time PIN](https://developers.cloudflare.com/cloudflare-one/integrations/identity-providers/one-time-pin/)

@@ -5,8 +5,8 @@ Canopy exposes a **live camera** and **physical controls** (Water 1s, Lamp). Tre
 ## Network
 
 - [ ] **No router port forwards** for Canopy / SSH / the camera. Tunnel is **outbound-only** from the Orange Pi to Cloudflare.
-- [ ] Confirm from outside the LAN that the old LAN IP:port is **not** reachable on the public internet.
-- [ ] Pi firewall (ufw/nftables) can still allow LAN access to Canopy while blocking WAN; tunnel does not require inbound ports.
+- [ ] Confirm from outside the LAN that `http://<home-ip>:5000` is **not** reachable.
+- [ ] Pi firewall can still allow LAN `:5000` while blocking WAN; tunnel does not need inbound ports.
 
 ## Tunnel
 
@@ -25,7 +25,7 @@ Canopy exposes a **live camera** and **physical controls** (Water 1s, Lamp). Tre
 
 ## Device & app
 
-- [ ] Canopy still binds primarily to localhost or LAN; tunnel points at that local URL.
+- [ ] Canopy still binds `0.0.0.0:5000` for LAN; tunnel points at `http://127.0.0.1:5000`.
 - [ ] You understand Water/Lamp buttons are live actuators — Access failure ≈ stranger can press them.
 - [ ] Camera sensitivity: don’t share the Access-protected URL casually; revoke emails that leave the allowlist.
 - [ ] Keep Orange Pi OS patched; unique passwords for any local SSH (prefer keys; no password auth from WAN — and no WAN SSH).

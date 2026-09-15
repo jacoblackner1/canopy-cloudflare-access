@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Install cloudflared on Orange Pi / Debian / Ubuntu (arm64 or amd64).
-# Does NOT create tunnels or write secrets — run after reading ../README.md
+# Does NOT create tunnels or write secrets — see docs/INSTALL.md
 set -euo pipefail
 
 if [[ "${EUID}" -ne 0 ]]; then
@@ -34,12 +34,7 @@ chown -R cloudflared:cloudflared /etc/cloudflared
 chmod 0750 /etc/cloudflared
 
 echo
-echo "Next:"
-echo "  1) As your admin user: cloudflared tunnel login"
-echo "  2) cloudflared tunnel create canopy"
-echo "  3) Copy config/config.example.yml → /etc/cloudflared/config.yml and fill PLACEHOLDERS"
-echo "  4) Move credentials JSON into /etc/cloudflared/ and chmod 600"
-echo "  5) cloudflared tunnel route dns canopy canopy.EXAMPLE.com"
-echo "  6) sudo cloudflared --config /etc/cloudflared/config.yml service install"
-echo "  7) sudo systemctl enable --now cloudflared"
-echo "  8) Put Cloudflare Access in front of the hostname (see docs/ACCESS-POLICY.md)"
+echo "Prefer:  cd ~/canopy-station && sudo ./scripts/install_tunnel.sh"
+echo "Then fill /etc/cloudflared/config.yml (UUID + hostname)."
+echo "Origin is already http://127.0.0.1:5000 — do not port-forward."
+echo "Access policy: docs/ACCESS-POLICY.md"

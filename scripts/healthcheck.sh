@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 # Quick healthcheck on the Orange Pi: local Canopy + cloudflared service.
-# Usage: ./healthcheck.sh [http://127.0.0.1:PORT]
+# Usage: ./healthcheck.sh [http://127.0.0.1:5000]
 set -euo pipefail
 
-LOCAL_URL="${1:-http://127.0.0.1:CANOPY_PORT}"
+LOCAL_URL="${1:-http://127.0.0.1:5000}"
 echo "== cloudflared =="
 if command -v cloudflared >/dev/null; then
   cloudflared --version || true
@@ -14,15 +14,18 @@ systemctl is-active cloudflared 2>/dev/null || echo "cloudflared service: inacti
 systemctl is-enabled cloudflared 2>/dev/null || true
 
 echo
-echo "== local Canopy =="
-if [[ "$LOCAL_URL" == *CANOPY_PORT* ]]; then
-  echo "Pass the real local URL, e.g.: $0 http://127.0.0.1:8080"
-  exit 2
-fi
+echo "== local Canopy (must work without Cloudflare) =="
 code="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 3 "$LOCAL_URL" || true)"
 echo "GET $LOCAL_URL → HTTP $code"
-[[ "$code" =~ ^2|3 ]] && echo "OK: local UI responds" || echo "WARN: local UI did not return 2xx/3xx"
+if [[ "$code" =~ ^[23] ]]; then
+  echo "OK: local UI responds"
+else
+  echo "WARN: local UI did not return 2xx/3xx — start canopy-station first"
+fi
+status="$(curl -sS -o /dev/null -w '%{http_code}' --connect-timeout 3 "${LOCAL_URL%/}/status" || true)"
+echo "GET ${LOCAL_URL%/}/status → HTTP $status"
 
 echo
 echo "== tip =="
 echo "Public hostname should require Cloudflare Access login before anyone sees Canopy."
+echo "LAN http://<pi>:5000/ stays open on home Wi-Fi with no Access prompt."

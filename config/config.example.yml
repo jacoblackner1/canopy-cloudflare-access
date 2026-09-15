@@ -1,6 +1,9 @@
-# Canopy — example cloudflared config (PLACEHOLDERS ONLY)
-# Copy to the Orange Pi as e.g. /etc/cloudflared/config.yml
-# Docs: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/
+# Canopy — example cloudflared config (PLACEHOLDERS ONLY for UUID / hostname)
+# Copy to the Orange Pi as /etc/cloudflared/config.yml
+#
+# Origin is the existing Flask dashboard:
+#   plant_dashboard.py binds flaskHost 0.0.0.0 / flaskPort 5000
+#   Tunnel uses loopback so LAN :5000 and HDMI kiosk stay untouched.
 
 # UUID from: cloudflared tunnel create canopy
 tunnel: TUNNEL_UUID_HERE
@@ -13,13 +16,13 @@ credentials-file: /etc/cloudflared/TUNNEL_UUID_HERE.json
 # loglevel: info
 
 ingress:
-  # Public hostname → existing Canopy LAN UI (do NOT rebuild Canopy)
-  # Replace with your Zero Trust hostname and the real local bind address/port.
+  # Public hostname → existing Canopy UI (do NOT rebuild Canopy)
   - hostname: canopy.EXAMPLE.com
-    service: http://127.0.0.1:CANOPY_PORT
+    service: http://127.0.0.1:5000
     originRequest:
-      # Canopy is a local dashboard; keep connect timeouts modest
       connectTimeout: 30s
+      # Flask is WSGI; also keeps the /video MJPEG stream intact
+      disableChunkedEncoding: true
       noTLSVerify: false
 
   # Catch-all (required): reject anything else

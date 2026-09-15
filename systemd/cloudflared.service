@@ -1,19 +1,20 @@
-# Optional hand-maintained unit. Prefer:
-#   sudo cloudflared --config /etc/cloudflared/config.yml service install
-# Official: https://developers.cloudflare.com/cloudflare-one/connections/connect-networks/configure-tunnels/local-management/as-a-service/linux/
+# Optional hand-maintained unit. canopy-station/scripts/install_tunnel.sh
+# installs this same shape so the tunnel starts after the dashboard.
+# Official alternative: sudo cloudflared --config /etc/cloudflared/config.yml service install
 
 [Unit]
 Description=Cloudflare Tunnel (Canopy)
-After=network-online.target
+After=network-online.target canopy-station.service
 Wants=network-online.target
+Wants=canopy-station.service
 
 [Service]
 Type=simple
 User=cloudflared
 Group=cloudflared
-ExecStart=/usr/local/bin/cloudflared --no-autoupdate --config /etc/cloudflared/config.yml tunnel run
-Restart=on-failure
-RestartSec=5s
+ExecStart=/usr/bin/cloudflared --no-autoupdate --config /etc/cloudflared/config.yml tunnel run
+Restart=always
+RestartSec=5
 LimitNOFILE=65536
 
 [Install]
