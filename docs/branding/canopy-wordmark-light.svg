@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 160" width="520" height="160" role="img" aria-label="Canopy">
+  <title>Canopy</title>
+  <!-- Icon -->
+  <g transform="translate(8,8) scale(0.5625)">
+    <path d="M128 188 C78 168 52 128 58 86 C92 78 118 108 128 148 Z" fill="#7A9470" opacity="0.95"/>
+    <path d="M128 188 C178 168 204 128 198 86 C164 78 138 108 128 148 Z" fill="#A8C49A" opacity="0.98"/>
+    <path d="M128 196 C98 150 88 108 108 64 C128 78 148 78 148 64 C168 108 158 150 128 196 Z" fill="#A8C49A"/>
+    <path d="M128 86 C128 120 128 150 128 188" stroke="#4A5C42" stroke-width="3.5" fill="none"/>
+    <path d="M128 110 C112 118 102 128 96 140" stroke="#4A5C42" stroke-width="2.2" fill="none" opacity="0.7"/>
+    <path d="M128 110 C144 118 154 128 160 140" stroke="#4A5C42" stroke-width="2.2" fill="none" opacity="0.7"/>
+    <path d="M128 188 L128 208" stroke="#4A5C42" stroke-width="4" stroke-linecap="round"/>
+  </g>
+  <!-- Wordmark: Georgia-like serif to match dashboard -->
+  <text x="168" y="104"
+        font-family="Georgia, 'Times New Roman', 'Source Serif Pro', serif"
+        font-size="72"
+        font-weight="400"
+        fill="#1A2218"
+        letter-spacing="1.5">Canopy</text>
+</svg>
